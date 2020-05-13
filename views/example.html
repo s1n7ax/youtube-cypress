@@ -7,6 +7,11 @@
 	<title>Example</title>
 
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<style>
+		.pad {
+			padding: 5px;
+		}
+	</style>
 </head>
 
 <body>
@@ -15,22 +20,55 @@
 	<fieldset>
 		<legend>Group</legend>
 		<div class="controlgroup" id="group">
-			<label>Name: </label>
-			<input type="text" id="name">
+			<div class="pad" id="readonly">
+			</div>
 
-			<br>
+			<div class="pad">
+				<label>Edit: </label>
+				<input type="button" id="edit" value="Edit">
+			</div>
 
-			<label>Hidden Name: </label>
-			<input type="text" id="hidden-name" style="visibility: hidden;">
+			<div class="pad">
+				<label>Name: </label>
+				<input type="text" id="name">
+			</div>
 
+			<div class="pad">
+				<label>Age: </label>
+				<input type="text" id="age">
+			</div>
 		</div>
-
-		<label>Another Element: </label>
-		<input type="text">
 	</fieldset>
 
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+		const getRandomBool = () => {
+			return Math.floor(Math.random() * Math.floor(10)) > 3;
+		}
+
+		const ro = document.getElementById('readonly');
+		const edit = document.getElementById('edit');
+		const name = document.getElementById('name');
+		const age = document.getElementById('age');
+
+		const readonly = getRandomBool();
+
+		if (readonly) {
+			const ele = document.createElement('label');
+			ele.innerText = "Readonly";
+			ro.appendChild(ele);
+			name.disabled = true;
+			age.disabled = true;
+		}
+
+		edit.addEventListener('click', () => {
+			ro.checked = false;
+			name.disabled = false;
+			age.disabled = false;
+		});
+
+	</script>
 
 </body>
 
