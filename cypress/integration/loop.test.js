@@ -22,7 +22,7 @@ describe('loops', () => {
 		// count(0);
 
 		cy.visit('https://mdbootstrap.com/docs/jquery/tables/pagination/');
-		findPerson('Sakura Yamamoto');
+		findPerson('Serge Baldwin');
 	});
 });
 
@@ -35,19 +35,19 @@ const findPerson = (name) => {
 		cy.get('@pages')
 			.its('length')
 			.then((len) => {
-				if (index >= len) {
-					return;
-				}
+				if (index >= len) return;
 
 				cy.get('@pages')
 					.eq(index)
 					.click();
 
 				cy.get('#dtBasicExample > tbody > tr > td:nth-child(1)')
-					.each((nameEle) => {
-						const nm = nameEle.text();
-						console.log(nm);
-						if (name === nm) {
+					.each((td) => {
+						const empName = td.text();
+
+						console.log(empName);
+
+						if (name === empName) {
 							found = true;
 							return false;
 						}
@@ -56,11 +56,27 @@ const findPerson = (name) => {
 						if (!found) findInPage(++index);
 					});
 			});
+
+		//
+		//
+		// cy.get('@pages')
+		//     .its('length')
+		//     .then((len) => [...Array(len).keys()])
+		//     .each((index) => {
+		//         cy.get('@pages')
+		//             .eq(index)
+		//             .click();
+		//         cy.get('#dtBasicExample > tbody > tr > td:nth-child(1)').each(
+		//             (td) => {
+		//                 const empName = td.text();
+		//
+		//                 console.log(empName);
+		//
+		//                 if (name === empName) return false;
+		//             }
+		//         );
+		//     });
 	};
 
 	findInPage(0);
 };
-
-// Cypress.on('uncaught:exception', () => {
-//     return false;
-// });
